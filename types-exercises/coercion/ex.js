@@ -1,39 +1,32 @@
 // TODO: write the validation functions
 
 function isValidName(name) {
-  const isString = typeof name === 'string';
-  const notEmpty = Boolean(name);
-  const minThreeChar = `${name}`.trim().length > 3;
-  return isString && notEmpty && minThreeChar;
+  if (typeof name === 'string' && `${name}`.trim().length > 3) {
+    return true;
+  }
+  return false;
 }
 
 function hoursAttended(attended, length) {
-  const numberValid = isValidNumber(attended) && isValidNumber(length);
-  if (!numberValid) {
-    return false;
+  if (typeof attended === 'string' && attended.trim() !== '') {
+    attended = Number(attended);
   }
-  return +attended <= +length;
+  if (typeof length === 'string' && length.trim() !== '') {
+    length = Number(length);
+  }
 
-  function isValidNumber(input) {
-    const typeStringOrNumber =
-      typeof input === 'number' ||
-      (typeof input === 'string' && input.trim().length > 0);
-    if (!typeStringOrNumber) {
-      return false;
-    }
-
-    const inputNumber = Number(input);
-    if (isNaN(inputNumber)) {
-      return false;
-    }
-    if (inputNumber < 0) {
-      return false;
-    }
-    if (inputNumber != Math.floor(inputNumber)) {
-      return false;
-    }
+  if (
+    typeof length === 'number' &&
+    typeof attended === 'number' &&
+    attended >= 0 &&
+    length >= 0 &&
+    Number.isInteger(attended) &&
+    Number.isInteger(length) &&
+    attended <= length
+  ) {
     return true;
   }
+  return false;
 }
 
 // tests:
